@@ -1,0 +1,21 @@
+{
+    "env" : {
+        "browser": true,
+        "node" : true,
+        "es6" : true
+    },
+    "parser": "babel-eslint",
+    "extends": ["standard", "standard-jsx", "standard-react"],
+    "rules": {
+        "semi": ["error", "always"],
+        "no-extra-semi": "error",
+        "react/prop-types": "off",
+        "eol-last": 0
+        // "indent": ["error", 4],
+        // "keyword-spacing": 0,
+        // "no-multi-spaces": 0,
+        // "space-before-function-paren": 0,
+        // "no-trailing-spaces": 0,
+        // "no-unused-vars": 0
+    }
+}
