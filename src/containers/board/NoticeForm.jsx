@@ -14,8 +14,6 @@ const NoticeForm = (props) => {
   }, []);
 
   const handleChange = (e) => {
-    // console.log(e.tartget.id);
-    // console.log(e.tartget.value);
     console.log(e);
     const obj = {
       // [e.target.id]: e.target.value

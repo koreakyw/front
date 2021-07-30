@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { boardService } from 'services';
-import SelectBox from 'components/board/Search';
+import SelectBox from 'components/board/SelectBox';
 import _ from 'lodash';
 
 const News = () => {
   const [list, setList] = useState({
     data: []
   }); // data는 쓰는애 setData는 넣는 애
-  const [sidoData, setSidoData] = useState({
+  const [data, setData] = useState({
     data: []
   });
-  const [sigunguData, setSigunguData] = useState({
+  const [subData, setSubData] = useState({
     data: []
   });
 
@@ -23,40 +23,51 @@ const News = () => {
     const params = {
       type: 'news',
       page: 1,
-      orderBy: 'reg_date',
-      search_content: _.get(condition, 'search_content'),
-      day_search: _.get(condition, 'day_search'),
-      context_search: _.get(condition, 'context_search')
+      orderBy: 'news_sort_num',
+      desc: 'asc',
+      ctprvn_code: _.get(condition, 'ctprvn_code'),
+      sgg_code: _.get(condition, 'sgg_code')
     };
     const res = await boardService.list(params);
-    console.log(res);
     setList(res);
   };
 
   const onSelectChange = (e) => {
-    console.log(e.target.value);
-    getSigunguData(e.target.value);
+    console.log('selectChange:', e);
+    const cityCode = _.get(e, 'ctprvn_code');
+    console.log(cityCode);
+    if (cityCode !== '') {
+      getSigunguData(e);
+    }
+    loadData(e);
+  };
+
+  const onSubSelectChange = (e) => {
+    loadData(e);
   };
 
   const getSidoData = async () => {
-    const res = await boardService.list();
-    setSidoData(res);
+    const res = await boardService.landRegionList();
+    setData(res);
   };
 
-  const getSigunguData = async () => {
-    const res = await boardService.list();
-    setSigunguData(res);
+  const getSigunguData = async (condition) => {
+    const params = {
+      ctprvn_code: _.get(condition, 'ctprvn_code')
+    };
+    const res = await boardService.landRegionDetailList(params);
+    setSubData(res);
   };
 
   return (
     <div>
       <div className='list-container'>
         뉴스게시판
+        <div>
+          <SelectBox id='ctprvn_code' optionName='시도 선택' data={data} onSelectChange={onSelectChange} />
+          <SelectBox id='sgg_code' optionName='시군구 선택' data={subData} onSubSelectChange={onSubSelectChange} />
+        </div>
         <table>
-          <div>
-            <SelectBox id='ctprvn_code' data={sidoData} onSelectChange={onSelectChange} />
-            <SelectBox id='sgg_code' data={sigunguData} onSelectChange={onSelectChange} />
-          </div>
           <thead>
             <tr>
               <th>제목</th>

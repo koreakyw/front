@@ -1,10 +1,18 @@
 import api from 'services';
 
 const boardService = {
-  sidoList: () => {
+  landRegionList: () => {
     return api({
       method: 'get',
-      url: 'board/sido/list'
+      url: 'board/region/list'
+    }).then(res => {
+      return res.data;
+    });
+  },
+  landRegionDetailList: (param) => {
+    return api({
+      method: 'get',
+      url: `board/region/detail/${param.ctprvn_code}`
     }).then(res => {
       return res.data;
     });

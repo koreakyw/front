@@ -4,7 +4,7 @@ const Search = (props) => {
   const { loadData } = props;
   const [searchData, setSearchData] = useState({});
 
-  const onSearch = (e) => {
+  const onSearch = () => {
     loadData(searchData);
   };
 
