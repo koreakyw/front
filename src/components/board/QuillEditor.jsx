@@ -1,4 +1,3 @@
-// import React, { useEffect } from 'react';
 import React from 'react';
 import ReactQuill from 'react-quill';
 
@@ -30,12 +29,11 @@ const QuillEditor = (props) => {
     console.log(delta);
     console.log(source);
     console.log(editor);
-    // console.log(editor.getContents());
+    console.log(editor.getContents());
     // editor.getContents();
   };
 
   return (
-    // <div reg={quillRef}>
     <ReactQuill
       id={id}
       theme='snow'

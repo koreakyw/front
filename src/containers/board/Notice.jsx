@@ -14,6 +14,7 @@ const Notice = () => {
   });
   const detailIdx = useRef();
   const mode = useRef();
+  const [searchParams, setSearchParams] = useState();
 
   /* 페이지네이션 */
   const [postsPerPage] = useState(1);
@@ -25,6 +26,10 @@ const Notice = () => {
     setPageType('list');
     loadData();
   }, []);
+
+  const changeData = (condition) => {
+    setSearchParams(condition);
+  };
 
   const loadData = async (condition) => {
     console.log('condition:', condition);
@@ -44,10 +49,12 @@ const Notice = () => {
 
   const handlePageClick = (e) => {
     console.log(e);
+    console.log('searchParams:', searchParams);
     const selectedPage = e.selected;
     const obj = {
       offset: selectedPage,
-      limit: 1
+      limit: 1,
+      ...searchParams
     };
     loadData(obj);
   };
@@ -82,7 +89,7 @@ const Notice = () => {
             </tbody>
           </table>
         </div>
-        <Search loadData={loadData} />
+        <Search loadData={loadData} changeData={changeData} />
         <Button variant='write' size='15' onClick={() => onForm('create')}>글쓰기</Button>
         <div className='pagination-wrapper'>
           <Paginations

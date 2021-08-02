@@ -43,8 +43,8 @@ const NoticeForm = (props) => {
   return (
     <div>
       공지게시판
-      <FormInput id='notice_title' type='text' onChange={handleChange} />
-      <FormInput id='notice_content' type='text' onChange={handleChange} />
+      <FormInput id='notice_title' type='text' className='inputClass' onChange={handleChange} />
+      <FormInput id='notice_content' type='text' className='inputClass' onChange={handleChange} />
       <Button variant='write' size='15' onClick={onClick}>{props.button_add_name}</Button>
     </div>
   );

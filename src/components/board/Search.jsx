@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 
 const Search = (props) => {
-  const { loadData } = props;
+  const { loadData, changeData } = props;
   const [searchData, setSearchData] = useState({});
 
   const onSearch = () => {
     loadData(searchData);
+    changeData(searchData);
   };
 
   const onChangeSelect = (e) => {

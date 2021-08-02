@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 const FormInput = (props) => {
-  const { type, id } = props;
+  const { type, id, className } = props;
   const [inputValue, setInputValue] = useState('');
   const handleChange = (e) => {
     setInputValue(e.target.value);
@@ -10,7 +10,7 @@ const FormInput = (props) => {
 
   return (
     <>
-      <input type={type} id={id} value={inputValue} onChange={handleChange} className='Inputclass' />
+      <input type={type} id={id} value={inputValue} onChange={handleChange} className={className} />
     </>
   );
 };
