@@ -6,6 +6,7 @@ import Button from 'components/board/Button';
 import NoticeDetail from 'containers/board/NoticeDetail';
 import NoticeForm from 'containers/board/NoticeForm';
 import Paginations from 'components/board/Pagination';
+import '../../App.css';
 
 const Notice = () => {
   const [pageType, setPageType] = useState();
@@ -48,8 +49,6 @@ const Notice = () => {
   };
 
   const handlePageClick = (e) => {
-    console.log(e);
-    console.log('searchParams:', searchParams);
     const selectedPage = e.selected;
     const obj = {
       offset: selectedPage,

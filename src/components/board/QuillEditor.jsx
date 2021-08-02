@@ -3,15 +3,15 @@ import ReactQuill from 'react-quill';
 
 const QuillEditor = (props) => {
   // const { quill, quillRef } = useQuill();
-  const { id, value } = props;
+  const { id, value, theme } = props;
   const modules = {
     toolbar: [
-      [{ header: [1, 2, false] }],
-      ['bold', 'italic', 'underline', 'strike', 'blockquote'],
-      [{ list: 'ordered' }, { list: 'bullet' }, { indent: '-1' }, { indent: '+1' }],
-      ['link', 'image'],
-      [{ align: [] }, { color: [] }, { background: [] }],
-      ['clean']
+      // [{ header: [1, 2, false] }],
+      // ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+      // [{ list: 'ordered' }, { list: 'bullet' }, { indent: '-1' }, { indent: '+1' }],
+      // ['link', 'image'],
+      // [{ align: [] }, { color: [] }, { background: [] }],
+      // ['clean']
     ]
   };
 
@@ -25,18 +25,15 @@ const QuillEditor = (props) => {
 
   const onEditorChange = (content, delta, source, editor) => {
     // editor.enable(false);
-    console.log(content);
-    console.log(delta);
-    console.log(source);
-    console.log(editor);
-    console.log(editor.getContents());
+    console.log(1234);
+    console.log(theme);
     // editor.getContents();
   };
 
   return (
     <ReactQuill
       id={id}
-      theme='snow'
+      theme={theme}
       modules={modules}
       formats={formats}
       value={value || ''}
