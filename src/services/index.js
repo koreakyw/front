@@ -3,7 +3,7 @@ import boardService from './boardService';
 
 const api = axios.create({
   // baseURL: 'http://landmaster.test/api/',
-  baseURL: 't.landmaster.co.kr/api/',
+  baseURL: 'http://t.landmaster.co.kr/api/',
   timeout: 3600
 }, { withCredentials: true });
 
