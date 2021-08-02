@@ -43,11 +43,13 @@ const News = () => {
     if (cityCode !== undefined && cityCode !== '') {
       console.log('이거는 선택');
       const mainParam = {
-        ctprvn_code: cityCode
+        ctprvn_code: cityCode,
+        sgg_code: ''
       };
       setSearchParams({
         ...searchParams, ...mainParam
       });
+      console.log('searchParams:', searchParams);
       getSigunguData(e);
     }
     if (cityCode === '') {
