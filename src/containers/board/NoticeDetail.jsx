@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { boardService } from 'services';
+import QuillEditor from 'components/board/QuillEditor';
 
 const NoticeDetail = (props) => {
   const [detail, setDetail] = useState({
@@ -19,6 +20,10 @@ const NoticeDetail = (props) => {
     setDetail(res);
   };
 
+  const onEditorChange = (value) => {
+    console.log('editorvalue:', value);
+  };
+
   return (
     <div>
       공지게시판
@@ -28,6 +33,12 @@ const NoticeDetail = (props) => {
       <button id='notice_form_view'>수정</button>
       <button id='delete_notice'>삭제</button>
       <button id='copy'>URL복사</button>
+      <QuillEditor
+        theme='snow'
+        id='notice_content'
+        value={detail.data.notice_content}
+        onEditorChange={onEditorChange}
+      />
     </div>
   );
 };

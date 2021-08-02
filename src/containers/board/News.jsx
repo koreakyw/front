@@ -33,9 +33,7 @@ const News = () => {
   };
 
   const onSelectChange = (e) => {
-    console.log('selectChange:', e);
     const cityCode = _.get(e, 'ctprvn_code');
-    console.log(cityCode);
     if (cityCode !== '') {
       getSigunguData(e);
     }
@@ -81,7 +79,7 @@ const News = () => {
               list.data && list.data.map((item, i) => {
                 return (
                   <tr key={i}>
-                    <td>{item.news_title}</td>
+                    <td><a target='_blank' rel='noreferrer' href={item.news_link}>{item.news_title}</a></td>
                     <td>{item.reg_user_id}</td>
                     <td>{item.reg_date}</td>
                     <td>{item.read_num}</td>
