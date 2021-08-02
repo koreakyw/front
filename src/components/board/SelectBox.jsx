@@ -1,18 +1,17 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 const SelectBox = (props) => {
   const { id, optionName, data } = props;
-  const [selectedData, updateSelectedData] = useState({});
 
   const handleChange = (e) => {
     const obj = {
       [e.target.id]: e.target.value
     };
-    updateSelectedData({
-      ...selectedData, ...obj
-    });
-    props.onSelectChange(obj);
-    // if (props.onSelectChange) props.onSelectChange(selectedData);
+    const condition = {
+      ...obj,
+      id: e.target.id
+    };
+    props.onSelectChange(condition);
   };
 
   // const subHandleChange = (e) => {
@@ -25,7 +24,7 @@ const SelectBox = (props) => {
   //   props.onSubSelectChange(obj);
   // };
 
-  const options = data.data.map((item, i) => {
+  const options = data.map((item, i) => {
     return (
       <option key={item.value} value={item.value}>
         {item.text}
@@ -43,6 +42,10 @@ const SelectBox = (props) => {
       {options}
     </select>
   );
+};
+
+SelectBox.defaultProps = {
+  data: []
 };
 
 export default SelectBox;

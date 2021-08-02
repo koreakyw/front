@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { boardService } from 'services';
 import SelectBox from 'components/board/SelectBox';
 import _ from 'lodash';
@@ -14,21 +14,23 @@ const News = () => {
     data: []
   });
 
-  const [searchParams, setSearchParams] = useState();
+  const ctprvnCode = useRef();
+
+  // const [searchParams, setSearchParams] = useState();
 
   useEffect(() => {
     loadData();
     getSidoData();
   }, []);
 
-  const loadData = async () => {
-    console.log('searchParams', searchParams);
+  const loadData = async (ctprvn_code = '', sgg_code = '') => {
     const params = {
       type: 'news',
       page: 1,
       orderBy: 'news_sort_num',
       desc: 'asc',
-      ...searchParams
+      ctprvn_code,
+      sgg_code
       // ctprvn_code: _.get(condition, 'ctprvn_code'),
       // sgg_code: _.get(condition, 'sgg_code')
     };
@@ -36,35 +38,40 @@ const News = () => {
     setList(res);
   };
 
-  const onSelectChange = (e) => {
-    console.log(e);
-    const cityCode = _.get(e, 'ctprvn_code');
-    const sggCode = _.get(e, 'sgg_code');
-    if (cityCode !== undefined && cityCode !== '') {
-      console.log('이거는 선택');
-      const mainParam = {
-        ctprvn_code: cityCode,
-        sgg_code: ''
-      };
-      setSearchParams({
-        ...searchParams, ...mainParam
-      });
-      console.log('searchParams:', searchParams);
-      getSigunguData(e);
+  const onSelectChange = (selected) => {
+    if (selected.id === 'ctprvn_code') {
+      ctprvnCode.current = selected.ctprvn_code; // 첫번째 셀렉트 선택시 값을 넣어놓는다
+      getSigunguData(selected);
     }
-    if (cityCode === '') {
-      // 초기화 시켜야함. select id : sgg_code
-    }
-    if (sggCode !== undefined && sggCode !== '') {
-      console.log('하위 select');
-      const subParam = {
-        sgg_code: sggCode
-      };
-      setSearchParams({
-        ...searchParams, ...subParam
-      });
-    }
-    loadData();
+    loadData(ctprvnCode.current, selected.sgg_code);
+    // console.log('onSelectChange', e);
+    // const cityCode = _.get(e, 'ctprvn_code');
+    // const sggCode = _.get(e, 'sgg_code');
+    // if (cityCode !== undefined && cityCode !== '') {
+    //   console.log('이거는 선택');
+    //   const mainParam = {
+    //     ctprvn_code: cityCode,
+    //     sgg_code: ''
+    //   };
+    //   setSearchParams({
+    //     ...searchParams, ...mainParam
+    //   });
+    //   console.log('searchParams:', searchParams);
+    //   getSigunguData(e);
+    // }
+    // if (cityCode === '') {
+    //   // 초기화 시켜야함. select id : sgg_code
+    // }
+    // if (sggCode !== undefined && sggCode !== '') {
+    //   console.log('하위 select');
+    //   const subParam = {
+    //     sgg_code: sggCode
+    //   };
+    //   setSearchParams({
+    //     ...searchParams, ...subParam
+    //   });
+    // }
+    // loadData();
   };
 
   const getSidoData = async () => {
@@ -78,7 +85,6 @@ const News = () => {
     };
     const res = await boardService.landRegionDetailList(params);
     setSubData(res);
-    setSearchParams(params);
   };
 
   return (
@@ -86,8 +92,8 @@ const News = () => {
       <div className='list-container'>
         뉴스게시판
         <div>
-          <SelectBox id='ctprvn_code' optionName='시도 선택' data={data} onSelectChange={onSelectChange} />
-          <SelectBox id='sgg_code' optionName='시군구 선택' data={subData} onSelectChange={onSelectChange} />
+          <SelectBox id='ctprvn_code' optionName='시도 선택' data={_.get(data, 'data')} onSelectChange={onSelectChange} />
+          <SelectBox id='sgg_code' optionName='시군구 선택' data={_.get(subData, 'data')} onSelectChange={onSelectChange} />
         </div>
         <table>
           <thead>
