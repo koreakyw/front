@@ -1,16 +1,22 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 const FormInput = (props) => {
-  const { type, id, className } = props;
-  const [inputValue, setInputValue] = useState('');
+  const { type, id, value, className } = props;
   const handleChange = (e) => {
-    setInputValue(e.target.value);
-    if (props.onChange) props.onChange(inputValue);
+    const obj = {
+      [e.target.id]: e.target.value
+    };
+    const condition = {
+      ...obj,
+      id: e.target.id,
+      value: e.target.value
+    };
+    props.onChange(condition);
   };
 
   return (
     <>
-      <input type={type} id={id} value={inputValue} onChange={handleChange} className={className} />
+      <input type={type} id={id} value={value} onChange={handleChange} className={className} />
     </>
   );
 };

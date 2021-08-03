@@ -38,7 +38,17 @@ const boardService = {
   create: (params) => {
     return api({
       method: 'post',
-      url: `board/${params.type}/create`
+      url: `board/${params.type}/create`,
+      params
+    }).then(res => {
+      return res.data;
+    });
+  },
+  delete: (params) => {
+    return api({
+      method: 'delete',
+      url: `board/${params.type}/${params.idx}`,
+      params
     }).then(res => {
       return res.data;
     });

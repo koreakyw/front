@@ -18,7 +18,7 @@ const Notice = () => {
   const [searchParams, setSearchParams] = useState();
 
   /* 페이지네이션 */
-  const [postsPerPage] = useState(1);
+  const [postsPerPage] = useState(5);
   // const [offset, setOffset] = useState(1);
   const [pageCount, setPageCount] = useState(0);
   /* 페이지네이션 */
@@ -36,8 +36,8 @@ const Notice = () => {
     console.log('condition:', condition);
     const params = {
       type: 'notice',
-      offset: _.get(condition, 'offset'),
-      limit: _.get(condition, 'limit'),
+      offset: _.get(condition, 'offset') ?? 0,
+      limit: _.get(condition, 'limit') ?? postsPerPage,
       orderBy: 'reg_date',
       search_content: _.get(condition, 'search_content'),
       day_search: _.get(condition, 'day_search'),
@@ -51,8 +51,8 @@ const Notice = () => {
   const handlePageClick = (e) => {
     const selectedPage = e.selected;
     const obj = {
-      offset: selectedPage,
-      limit: 1,
+      offset: selectedPage * postsPerPage,
+      limit: postsPerPage,
       ...searchParams
     };
     loadData(obj);
