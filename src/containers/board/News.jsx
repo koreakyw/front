@@ -41,8 +41,13 @@ const News = () => {
   const onSelectChange = (selected) => {
     if (selected.id === 'ctprvn_code') {
       ctprvnCode.current = selected.ctprvn_code; // 첫번째 셀렉트 선택시 값을 넣어놓는다
-      getSigunguData(selected);
+      if (selected.ctprvn_code !== '') {
+        getSigunguData(selected);
+      } else {
+        setSubData([]);
+      }
     }
+
     loadData(ctprvnCode.current, selected.sgg_code);
     // console.log('onSelectChange', e);
     // const cityCode = _.get(e, 'ctprvn_code');
