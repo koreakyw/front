@@ -12,6 +12,8 @@ const NoticeDetail = (props) => {
     data: {}
   });
 
+  const [contents, setContents] = useState();
+
   useEffect(() => {
     loadData();
   }, []);
@@ -23,11 +25,10 @@ const NoticeDetail = (props) => {
     };
     const res = await boardService.detail(params);
     setDetail(res);
-    console.log(res.data.notice_content);
   };
 
-  const onChange = (value) => {
-    console.log('value:', value);
+  const onEditorView = (e) => {
+    setContents(e.value);
   };
 
   const deleteNotice = async () => {
@@ -54,10 +55,11 @@ const NoticeDetail = (props) => {
       <button id='delete_notice' onClick={deleteNotice}>삭제</button>
       <button id='copy' onClick={onClickCopy}>URL복사</button>
       <QuillEditor
-        theme='snow'
+        theme='bubble'
         id='notice_content'
-        value={detail.data.notice_content}
-        onChange={value => onChange(value)}
+        value={contents}
+        onChange={onEditorView}
+        readOnly
       />
     </div>
   );

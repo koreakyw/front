@@ -33,7 +33,6 @@ const Notice = () => {
   };
 
   const loadData = async (condition) => {
-    console.log('condition:', condition);
     const params = {
       type: 'notice',
       offset: _.get(condition, 'offset') ?? 0,

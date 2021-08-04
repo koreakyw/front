@@ -1,10 +1,11 @@
 import React from 'react';
 import ReactQuill from 'react-quill';
 import 'quill/dist/quill.snow.css';
+import 'quill/dist/quill.bubble.css';
 
 const QuillEditor = (props) => {
   // const { quill, quillRef } = useQuill();
-  const { id, value } = props;
+  const { id, value, theme, readOnly } = props;
 
   // const modules = {
   //   toolbar: [
@@ -35,19 +36,20 @@ const QuillEditor = (props) => {
       ...obj,
       id: id,
       value: value,
-      text: content
+      text: content,
+      editor
     };
-    props.onChange(condition);
+    if (props.onChange) props.onChange(condition);
   };
 
   return (
     <ReactQuill
       id={id}
-      theme='snow'
-      // modules={modules}
+      theme={theme}
       // formats={formats}
       value={value}
       onChange={onEditorChange}
+      readOnly={readOnly}
     />
   );
 };
