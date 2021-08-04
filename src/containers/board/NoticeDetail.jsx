@@ -3,16 +3,11 @@ import { boardService } from 'services';
 import QuillEditor from 'components/board/QuillEditor';
 import { useLocation } from 'react-router-dom';
 
-// import Quill from 'quill';
-// import { useQuill } from 'react-quilljs';
-
 const NoticeDetail = (props) => {
   const location = useLocation();
   const [detail, setDetail] = useState({
     data: {}
   });
-
-  const [contents, setContents] = useState();
 
   useEffect(() => {
     loadData();
@@ -25,10 +20,6 @@ const NoticeDetail = (props) => {
     };
     const res = await boardService.detail(params);
     setDetail(res);
-  };
-
-  const onEditorView = (e) => {
-    setContents(e.value);
   };
 
   const deleteNotice = async () => {
@@ -57,8 +48,7 @@ const NoticeDetail = (props) => {
       <QuillEditor
         theme='bubble'
         id='notice_content'
-        value={contents}
-        onChange={onEditorView}
+        value={detail.data.notice_content}
         readOnly
       />
     </div>
