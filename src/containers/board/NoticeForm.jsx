@@ -29,7 +29,7 @@ const NoticeForm = (props) => {
   };
 
   const loadData = async (condition) => {
-    console.log('logData');
+    console.log(1);
   };
 
   const noticeCreate = async (condition) => {
@@ -57,14 +57,6 @@ const NoticeForm = (props) => {
     setParams({
       ...params, ...obj
     });
-    // const obj = {
-    //   id: e.id,
-    //   [e.id]: e.value
-    // };
-    // console.log('obj:', obj);
-    // setCreate({
-    //   ...create, ...obj
-    // });
   };
 
   return (

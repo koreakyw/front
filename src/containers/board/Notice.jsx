@@ -111,8 +111,8 @@ const Notice = () => {
     setPageType('detail');
   };
 
-  const onForm = (type) => {
-    mode.current = type;
+  const onForm = () => {
+    mode.current = 'create';
     setPageType('form');
   };
 
