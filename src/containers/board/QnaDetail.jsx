@@ -16,11 +16,7 @@ const QnaDetail = (props) => {
   }, []);
 
   const loadData = async () => {
-    const params = {
-      type: 'qna',
-      idx: props.idx
-    };
-    const res = await boardService.detail(params);
+    const res = await boardService.detail('qna', props.idx);
     setDetail(res);
     console.log(res);
   };

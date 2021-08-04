@@ -26,12 +26,11 @@ const QnaForm = (props) => {
 
   const loadData = async (condition) => {
     const params = {
-      type: 'qna',
       title: _.get(condition, 'title'),
       content: _.get(condition, 'content')
     };
     console.log(params);
-    const res = await boardService.create(params);
+    const res = await boardService.create('qna', params);
     // const res = [];
     setCreate(res);
   };

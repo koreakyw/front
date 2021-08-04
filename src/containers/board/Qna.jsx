@@ -22,14 +22,13 @@ const Qna = () => {
 
   const loadData = async (condition) => {
     const params = {
-      type: 'qna',
       page: 1,
       orderBy: 'reg_date',
       search_content: _.get(condition, 'search_content'),
       day_search: _.get(condition, 'day_search'),
       context_search: _.get(condition, 'context_search')
     };
-    const res = await boardService.list(params);
+    const res = await boardService.list('qna', params);
     setList(res);
     console.log(res.data);
   };
