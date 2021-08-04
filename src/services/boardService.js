@@ -38,7 +38,8 @@ const boardService = {
   create: (params) => {
     return api({
       method: 'post',
-      url: `board/${params.type}/create`
+      url: `board/${params.type}/create`,
+      params
     }).then(res => {
       return res.data;
     });
