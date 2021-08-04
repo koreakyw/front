@@ -78,8 +78,10 @@ const QnaDetail = (props) => {
           detail.data.get_reply && detail.data.get_reply.map((item, i) => {
             return (
               <tr key={i}>
-                <label>{item.qna_re_content}</label>
-                <button onClick={() => replyDelete(item)}>삭제</button><br /><br />
+                <label>{item.reg_user_id}  </label>
+                <label>{item.reg_date}</label>
+                <button onClick={() => replyDelete(item)}>삭제</button><br />
+                <label>{item.qna_re_content}</label><br /><br />
               </tr>
             );
           })
