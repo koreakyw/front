@@ -5,6 +5,8 @@ import Search from 'components/board/Search';
 import Button from 'components/board/Button';
 import NoticeDetail from 'containers/board/NoticeDetail';
 import NoticeForm from 'containers/board/NoticeForm';
+import Paginations from 'components/board/Pagination';
+import '../../App.css';
 
 const Notice = () => {
   const [pageType, setPageType] = useState();
@@ -13,16 +15,28 @@ const Notice = () => {
   });
   const detailIdx = useRef();
   const mode = useRef();
+  const [searchParams, setSearchParams] = useState();
+
+  /* 페이지네이션 */
+  const [postsPerPage] = useState(5);
+  // const [offset, setOffset] = useState(1);
+  const [pageCount, setPageCount] = useState(0);
+  /* 페이지네이션 */
 
   useEffect(() => {
     setPageType('list');
     loadData();
   }, []);
 
+  const changeData = (condition) => {
+    setSearchParams(condition);
+  };
+
   const loadData = async (condition) => {
     const params = {
       type: 'notice',
-      page: 1,
+      offset: _.get(condition, 'offset') ?? 0,
+      limit: _.get(condition, 'limit') ?? postsPerPage,
       orderBy: 'reg_date',
       search_content: _.get(condition, 'search_content'),
       day_search: _.get(condition, 'day_search'),
@@ -30,6 +44,17 @@ const Notice = () => {
     };
     const res = await boardService.list(params);
     setList(res);
+    setPageCount(Math.ceil(res.pageData.totalCount / postsPerPage));
+  };
+
+  const handlePageClick = (e) => {
+    const selectedPage = e.selected;
+    const obj = {
+      offset: selectedPage * postsPerPage,
+      limit: postsPerPage,
+      ...searchParams
+    };
+    loadData(obj);
   };
 
   const listContainer = (list = {}) => {
@@ -48,9 +73,9 @@ const Notice = () => {
             </thead>
             <tbody>
               {
-                list.data && list.data.map((item, i) => {
+                list.data.map((item, i) => {
                   return (
-                    <tr key={i} onClick={() => onDetail(i)}>
+                    <tr key={i} onClick={() => onDetail(item.idx)}>
                       <td>{item.notice_title}</td>
                       <td>{item.reg_user_id}</td>
                       <td>{item.reg_date}</td>
@@ -62,8 +87,21 @@ const Notice = () => {
             </tbody>
           </table>
         </div>
-        <Search loadData={loadData} />
+        <Search loadData={loadData} changeData={changeData} />
         <Button variant='write' size='15' onClick={() => onForm('create')}>글쓰기</Button>
+        <div className='pagination-wrapper'>
+          <Paginations
+            previousLabel='prev'
+            nextLabel='next'
+            pageCount={pageCount}
+            onPageChange={handlePageClick}
+            activeClassName='active'
+            containerClassName='pagination'
+            subContainerClassName='pages pagination'
+            marginPagesDisplayed={2}
+            pageRangeDisplayed={5}
+          />
+        </div>
       </div>
     );
   };
@@ -73,8 +111,8 @@ const Notice = () => {
     setPageType('detail');
   };
 
-  const onForm = (type) => {
-    mode.current = type;
+  const onForm = () => {
+    mode.current = 'create';
     setPageType('form');
   };
 
