@@ -61,6 +61,24 @@ const boardService = {
     }).then(res => {
       return res.data;
     });
+  },
+  replyCreate: (params) => {
+    return api({
+      method: 'post',
+      url: `board/${params.type}/reply/create`,
+      params
+    }).then(res => {
+      return res.data;
+    });
+  },
+  replyDelete: (params) => {
+    return api({
+      method: 'delete',
+      url: `board/${params.type}/reply/${params.idx}`,
+      params
+    }).then(res => {
+      return res.data;
+    });
   }
 };
 

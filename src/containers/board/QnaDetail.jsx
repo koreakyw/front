@@ -28,7 +28,7 @@ const QnaDetail = (props) => {
   const handleChange = (e) => {
     console.log(e);
     const obj = {
-      // [e.target.id]: e.target.value
+      [e.id]: e.value
     };
     // console.log(obj);
     setCreate({
@@ -36,8 +36,27 @@ const QnaDetail = (props) => {
     });
   };
 
-  const onClick = (e) => {
-    console.log(e);
+  const onClick = async () => {
+    const params = {
+      type: 'qna',
+      idx: props.idx,
+      content: create.content
+    };
+    const res = await boardService.replyCreate(params);
+    loadData();
+    console.log(res);
+  };
+
+  const replyDelete = async (condition) => {
+    console.log(condition);
+    const params = {
+      type: 'qna',
+      idx: props.idx,
+      content: condition.qna_re_content
+    };
+    const res = await boardService.replyDelete(params);
+    loadData();
+    console.log(res);
   };
 
   return (
@@ -53,8 +72,18 @@ const QnaDetail = (props) => {
       </div>
       <div>
         댓글
-        <FormInput id='title' type='text' onChange={handleChange} /><br />
+        <FormInput id='content' type='text' onChange={handleChange} /><br />
         <Button variant='write' size='15' onClick={onClick}>등록</Button><br /><br />
+        {
+          detail.data.get_reply && detail.data.get_reply.map((item, i) => {
+            return (
+              <tr key={i}>
+                <label>{item.qna_re_content}</label>
+                <button onClick={() => replyDelete(item)}>삭제</button><br /><br />
+              </tr>
+            );
+          })
+        }
       </div>
     </div>
   );
