@@ -18,20 +18,12 @@ const DailyNewsDetail = (props) => {
   }, []);
 
   const loadData = async () => {
-    const params = {
-      type: 'daily_news',
-      idx: props.idx
-    };
-    const res = await boardService.detail(params);
+    const res = await boardService.detail('daily_news', props.idx);
     setDetail(res);
   };
 
   const dailyNewsDelete = async () => {
-    const params = {
-      type: 'daily_news',
-      idx: props.idx
-    };
-    const res = await boardService.delete(params);
+    const res = await boardService.delete('daily_news', props.idx);
     console.log(res.alertMessage);
   };
 

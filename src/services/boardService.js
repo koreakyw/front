@@ -9,72 +9,70 @@ const boardService = {
       return res.data;
     });
   },
-  landRegionDetailList: (param) => {
+  landRegionDetailList: (ctprvnCode) => {
     return api({
       method: 'get',
-      url: `board/region/detail/${param.ctprvn_code}`
+      url: `board/region/detail/${ctprvnCode}`
     }).then(res => {
       return res.data;
     });
   },
-  list: (params) => {
+  list: (type, params) => {
     return api({
       method: 'get',
-      url: `board/${params.type}/list`,
+      url: `board/${type}/list`,
       params
     }).then(res => {
       return res.data;
     });
   },
-  detail: (params) => {
+  detail: (type, idx) => {
     return api({
       method: 'get',
-      url: `board/${params.type}/detail/${params.idx}`,
-      params
+      url: `board/${type}/detail/${idx}`
     }).then(res => {
       return res.data;
     });
   },
-  create: (params) => {
+  create: (type, params) => {
     return api({
       method: 'post',
-      url: `board/${params.type}/create`,
+      url: `board/${type}/create`,
       params
     }).then(res => {
       return res.data;
     });
   },
-  modify: (params) => {
+  modify: (type, idx, params) => {
     return api({
       method: 'put',
-      url: `board/${params.type}/${params.idx}`,
+      url: `board/${type}/${idx}`,
       params
     }).then(res => {
       return res.data;
     });
   },
-  delete: (params) => {
+  delete: (type, idx) => {
     return api({
       method: 'delete',
-      url: `board/${params.type}/${params.idx}`,
-      params
+      url: `board/${type}/${idx}`
     }).then(res => {
       return res.data;
     });
   },
-  replyCreate: (params) => {
+  replyCreate: (type, params) => {
     return api({
       method: 'post',
-      url: `board/${params.type}/reply/create`,
+      url: `board/${type}/reply/create`,
       params
     }).then(res => {
       return res.data;
     });
   },
-  replyDelete: (params) => {
+  replyDelete: (type, idx, params) => {
     return api({
       method: 'delete',
-      url: `board/${params.type}/reply/${params.idx}`,
+      url: `board/${type}/reply/${idx}`,
       params
     }).then(res => {
       return res.data;

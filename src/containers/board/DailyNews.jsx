@@ -30,7 +30,6 @@ const DailyNews = () => {
 
   const loadData = async (condition) => {
     const params = {
-      type: 'daily_news',
       offset: _.get(condition, 'offset') ?? 0,
       limit: _.get(condition, 'limit') ?? postsPerPage,
       orderBy: 'reg_date',
@@ -38,7 +37,7 @@ const DailyNews = () => {
       day_search: _.get(condition, 'day_search'),
       context_search: _.get(condition, 'context_search')
     };
-    const res = await boardService.list(params);
+    const res = await boardService.list('daily_news', params);
     setList(res);
     setPageCount(Math.ceil(res.pageData.totalCount / postsPerPage));
   };

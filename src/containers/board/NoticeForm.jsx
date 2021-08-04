@@ -53,12 +53,10 @@ const NoticeForm = (props) => {
   const noticeModify = async (condition) => {
     const noticeTitle = _.get(condition, 'notice_title') ?? inputText;
     const params = {
-      type: 'notice',
-      idx: props.idx,
       notice_title: noticeTitle,
       notice_content: _.get(condition, 'notice_content')
     };
-    const res = await boardService.modify(params);
+    const res = await boardService.modify('notice', props.idx, params);
     console.log(res.alertMessage); // 이거는 alert 띄우고 리스트로 페이지 돌리는 방법 필요.
   };
 

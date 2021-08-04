@@ -25,7 +25,6 @@ const News = () => {
 
   const loadData = async (ctprvn_code = '', sgg_code = '') => {
     const params = {
-      type: 'news',
       page: 1,
       orderBy: 'news_sort_num',
       desc: 'asc',
@@ -34,7 +33,7 @@ const News = () => {
       // ctprvn_code: _.get(condition, 'ctprvn_code'),
       // sgg_code: _.get(condition, 'sgg_code')
     };
-    const res = await boardService.list(params);
+    const res = await boardService.list('news', params);
     setList(res);
   };
 
@@ -85,10 +84,8 @@ const News = () => {
   };
 
   const getSigunguData = async (condition) => {
-    const params = {
-      ctprvn_code: _.get(condition, 'ctprvn_code')
-    };
-    const res = await boardService.landRegionDetailList(params);
+    const ctprvnCode = _.get(condition, 'ctprvn_code');
+    const res = await boardService.landRegionDetailList(ctprvnCode);
     setSubData(res);
   };
 

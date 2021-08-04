@@ -18,11 +18,7 @@ const NoticeDetail = (props) => {
   }, []);
 
   const loadData = async () => {
-    const params = {
-      type: 'notice',
-      idx: props.idx
-    };
-    const res = await boardService.detail(params);
+    const res = await boardService.detail('notice', props.idx);
     setDetail(res);
   };
 
@@ -47,11 +43,7 @@ const NoticeDetail = (props) => {
   };
 
   const deleteNotice = async () => {
-    const params = {
-      type: 'notice',
-      idx: props.idx
-    };
-    const res = await boardService.delete(params);
+    const res = await boardService.delete('notice', props.idx);
     console.log(res.alertMessage);
   };
 
