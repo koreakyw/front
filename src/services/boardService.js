@@ -44,6 +44,15 @@ const boardService = {
       return res.data;
     });
   },
+  modify: (params) => {
+    return api({
+      method: 'put',
+      url: `board/${params.type}/${params.idx}`,
+      params
+    }).then(res => {
+      return res.data;
+    });
+  },
   delete: (params) => {
     return api({
       method: 'delete',

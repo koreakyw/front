@@ -27,7 +27,6 @@ const NoticeDetail = (props) => {
   };
 
   const detailContainer = (detail = {}) => {
-    console.log(detail.data);
     return (
       <div>
         공지게시판
@@ -70,7 +69,7 @@ const NoticeDetail = (props) => {
     let Container = null;
     switch (type) {
       case 'modify':
-        Container = <NoticeForm mode={mode.current} button_add_name='수정' />;
+        Container = <NoticeForm mode={mode.current} idx={props.idx} data={detail} button_add_name='수정' />;
         break;
       default:
         Container = detailContainer(detail);
