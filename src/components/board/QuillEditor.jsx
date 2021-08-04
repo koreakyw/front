@@ -5,7 +5,7 @@ import 'quill/dist/quill.bubble.css';
 
 const QuillEditor = (props) => {
   // const { quill, quillRef } = useQuill();
-  const { id, value, theme, readOnly } = props;
+  const { id, value, theme, modules, readOnly } = props;
 
   // const modules = {
   //   toolbar: [
@@ -46,6 +46,7 @@ const QuillEditor = (props) => {
     <ReactQuill
       id={id}
       theme={theme}
+      modules={modules}
       // formats={formats}
       value={value}
       onChange={onEditorChange}

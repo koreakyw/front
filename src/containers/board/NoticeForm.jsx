@@ -11,6 +11,12 @@ const NoticeForm = (props) => {
   });
   const [text, setText] = useState('');
   const [inputText, setInputText] = useState('');
+  const modules = {
+    toolbar: [
+      ['bold', 'italic', 'image', 'video']
+    ]
+  };
+
   useEffect(() => {
     loadData();
   }, []);
@@ -79,7 +85,7 @@ const NoticeForm = (props) => {
       공지게시판
       <FormInput id='notice_title' type='text' value={inputText} className='inputClass' onChange={handleChange} />
       <div className='editor'>
-        <QuillEditor id='notice_content' theme='snow' value={text} className='inputClass' readOnly={false} onChange={editorHandleChange} />
+        <QuillEditor id='notice_content' theme='snow' modules={modules} value={text} className='inputClass' readOnly={false} onChange={editorHandleChange} />
       </div>
       <Button variant='write' size='15' onClick={onClick}>{props.button_add_name}</Button>
     </div>
