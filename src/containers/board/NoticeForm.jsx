@@ -51,10 +51,11 @@ const NoticeForm = (props) => {
   };
 
   const noticeModify = async (condition) => {
+    const noticeTitle = _.get(condition, 'notice_title') ?? inputText;
     const params = {
       type: 'notice',
       idx: props.idx,
-      notice_title: _.get(condition, 'notice_title'),
+      notice_title: noticeTitle,
       notice_content: _.get(condition, 'notice_content')
     };
     const res = await boardService.modify(params);
