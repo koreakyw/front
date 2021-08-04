@@ -69,7 +69,7 @@ const NoticeDetail = (props) => {
     let Container = null;
     switch (type) {
       case 'modify':
-        Container = <NoticeForm mode={mode.current} idx={props.idx} data={detail} button_add_name='수정' />;
+        Container = <NoticeForm mode={mode.current} idx={props.idx} data={detail.data} button_add_name='수정' />;
         break;
       default:
         Container = detailContainer(detail);
