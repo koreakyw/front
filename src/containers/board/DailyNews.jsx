@@ -1,10 +1,11 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { boardService } from 'services';
-import Search from 'components/board/Search';
 import _ from 'lodash';
-// import Button from 'components/board/Button';
+import { boardService } from 'services';
 import Paginations from 'components/board/Pagination';
 import '../../App.css';
+import Search from 'components/board/Search';
+import Button from 'components/board/Button';
+import DailyNewsForm from 'containers/board/DailyNewsForm';
 import DailyNewsDetail from 'containers/board/DailyNewsDetail';
 
 const DailyNews = () => {
@@ -13,7 +14,7 @@ const DailyNews = () => {
     data: []
   }); // data는 쓰는애 setData는 넣는 애
   const detailIdx = useRef();
-  // const mode = useRef();
+  const mode = useRef();
   const [searchParams, setSearchParams] = useState();
 
   /* 페이지네이션 */
@@ -56,6 +57,11 @@ const DailyNews = () => {
     loadData(obj);
   };
 
+  const onForm = () => {
+    mode.current = 'create';
+    setPageType('form');
+  };
+
   const onDetail = (idx) => {
     detailIdx.current = idx;
     setPageType('detail');
@@ -67,9 +73,9 @@ const DailyNews = () => {
       case 'detail':
         Container = <DailyNewsDetail idx={detailIdx.current} />;
         break;
-      // case 'form':
-      //   Container = <NoticeForm mode={mode.current} button_add_name='등록' />;
-      //   break;
+      case 'form':
+        Container = <DailyNewsForm mode={mode.current} button_add_name='등록' />;
+        break;
       default:
         Container = listContainer(list);
         break;
@@ -108,6 +114,7 @@ const DailyNews = () => {
           </table>
         </div>
         <Search loadData={loadData} changeData={changeData} />
+        <Button variant='write' size='15' onClick={() => onForm('create')}>글쓰기</Button>
         {/* <Button variant='write' size='15' onClick={() => onForm('create')}>글쓰기</Button> */}
         <div className='pagination-wrapper'>
           <Paginations
