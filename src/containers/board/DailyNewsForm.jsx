@@ -53,12 +53,10 @@ const DailyNewsForm = (props) => {
   const dailyNewsModify = async (condition) => {
     const newTitle = _.get(condition, 'news_title') ?? inputText;
     const params = {
-      type: 'daily_news',
-      idx: props.idx,
       news_title: newTitle,
       news_content: _.get(condition, 'news_content')
     };
-    const res = await boardService.modify(params);
+    const res = await boardService.modify('daily_news', props.idx, params);
     console.log(res.alertMessage); // 이거는 alert 띄우고 리스트로 페이지 돌리는 방법 필요.
   };
 

@@ -9,7 +9,7 @@ import {
 *
 */
 import Board from 'routes/board/Board';
-
+import Direct from 'routes/direct/Direct';
 /*
 *
 */
@@ -21,6 +21,10 @@ const Routers = (props) => {
     {
       path: '/board',
       component: Board
+    },
+    {
+      path: '/direct',
+      component: Direct
     }
   ];
 
